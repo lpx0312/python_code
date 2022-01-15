@@ -1,0 +1,44 @@
+
+http协议：
+
+
+一、请求协议格式（浏览器-->服务器）：
+  
+  请求方式 URL? HTTP1.1  # 请求首行
+  key：value  # 请求头
+  
+  请求体（只有POST请求）
+  
+二、响应协议格式（服务器 --> 浏览器）
+  HTTP1.1 状态码  状态码解释文  # 响应首行 
+  响应头
+  
+  响应体
+  
+三、web应用程序
+
+
+四、向服务器发送请求的方式：
+    1、地址栏    GET
+	2、超链接标签  GET
+	3、form表单  GET/POST
+	4、ajax请求
+	
+	
+enctype="application/x-www-form-urlencoded"  # 'user=yuan&pwd=123'
+
+json： '{"user":"yuan","pwd":123}'
+
+formdata：'针对文件格式'
+
+
+
+
+
+
+  
+  
+ 
+  
+    
+	

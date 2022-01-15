@@ -1,0 +1,40 @@
+DEBUG:root:debug信息
+INFO:root:info信息
+WARNING:root:warning信息
+ERROR:root:error信息
+CRITICAL:root:critical信息
+DEBUG:root:debug信息
+INFO:root:info信息
+WARNING:root:warning信息
+ERROR:root:error信息
+CRITICAL:root:critical信息
+2021-02-22 21:52:54,163
+2021-02-22 21:52:54,163
+2021-02-22 21:52:54,163
+2021-02-22 21:52:54,163
+2021-02-22 21:52:54,163
+2021-02-22 21:54:10,430 root
+2021-02-22 21:54:10,430 root
+2021-02-22 21:54:10,431 root
+2021-02-22 21:54:10,431 root
+2021-02-22 21:54:10,431 root
+2021-02-22 21:54:45,220:root debug信息
+2021-02-22 21:54:45,220:root info信息
+2021-02-22 21:54:45,220:root warning信息
+2021-02-22 21:54:45,220:root error信息
+2021-02-22 21:54:45,220:root critical信息
+2021-02-22 21:56:01,509:root debug信息
+2021-02-22 21:56:01,509:root info信息
+2021-02-22 21:56:01,509:root warning信息
+2021-02-22 21:56:01,509:root error信息
+2021-02-22 21:56:01,509:root critical信息
+2021-02-22 21:57:06,173:root debug信息 行数:13
+2021-02-22 21:57:06,174:root info信息 行数:14
+2021-02-22 21:57:06,174:root warning信息 行数:15
+2021-02-22 21:57:06,174:root error信息 行数:16
+2021-02-22 21:57:06,174:root critical信息 行数:17
+2021/02/22 21:59:49:root debug信息 行数:14
+2021/02/22 21:59:49:root info信息 行数:15
+2021/02/22 21:59:49:root warning信息 行数:16
+2021/02/22 21:59:49:root error信息 行数:17
+2021/02/22 21:59:49:root critical信息 行数:18

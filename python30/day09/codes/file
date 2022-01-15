@@ -1,0 +1,13 @@
+[db1]
+conn = localhost
+port = 3306
+user = root
+password = 123456
+dbname = test
+ 
+[db2]
+conn = localhost
+port = 3306
+user = root
+password = 123456
+dbname = test1
