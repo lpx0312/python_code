@@ -138,7 +138,7 @@ CRITICAL:root:This is a critical log.
 ```
 
 
-### 3.3 配置下日志输出目标文件和日志格式【重点】
+### 3.3 配置日志输出目标文件和日志格式【重点】
 
 ```python
 import logging
