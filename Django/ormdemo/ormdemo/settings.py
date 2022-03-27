@@ -77,8 +77,18 @@ WSGI_APPLICATION = 'ormdemo.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 默认SQLlite3引擎
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+
+        # 配置mysql引擎
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'books',
+        'USER': 'oldboy',
+        'PASSWORD': '123',
+        'HOST': '10.0.0.11',
+        'PORT': 3306
+
     }
 }
 
@@ -120,3 +130,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.db.backends': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level':'DEBUG',
+        },
+    }
+}
