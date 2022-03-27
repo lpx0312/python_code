@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+        {# 这里是 将base中默认的内容 也展示出来 #}
+        {{ block.super }}
+        <h1>Django模板教程：<a href="https://www.cnblogs.com/yuanchenqi/articles/8876892.html">Yuan</a></h1>
+
+        <h2>变量渲染</h2>
+
+        {{ s }}
+        {{ l }}
+        {{ dic }}
+
+        <h2> 深度查询点 . </h2>
+        <div>{{ s.0 }}</div>
+        <div>{{ s.1 }}</div>
+        <div>{{ l.0 }}</div>
+        <div>{{ l.1 }}</div>
+        <div>{{ dic.name }}</div>
+        <div>{{ dic.age }}</div>
+
+        <h2>过滤器</h2>
+        <div>{{ now|date:"Y-m-d" }}</div>
+
+        <div>{{ books|default:"没有符合条件的书籍" }}</div>
+        {#file_size 是字节大小 #}
+        <div>{{ file_size|filesizeformat }}</div>
+        {#truncatechars 字符截断#}
+        {#truncatewords 单词截断#}
+        <div>{{ story|truncatechars:6 }}</div>
+        <div>{{ story|truncatewords:2 }}</div>
+        {#默认render会将link中a标签做转义，safe过滤器 让其不转义#}
+        <div>{{ link|safe }}</div>
+
+        <h2>标签渲染</h2>
+        <ul>
+            {#    <li>{{ l.0 }}</li>#}
+            {#    <li>{{ l.1 }}</li>#}
+            {#    <li>{{ l.2 }}</li>#}
+            {#    <li>{{ l.3 }}</li>#}
+            {#就是jinja2 模板#}
+            {#{{ forloop.counter}} django 模板计时器，只能在for里面使用 默认1#}
+            {#{{ forloop.counter0}} django 模板计时器，只能在for里面使用 默认0   #}
+            {% for book in l %}
+                <li>{{ forloop.counter0 }} {{ book }}:{{ book }}</li>
+            {% endfor %}
+        </ul>
+        {#>左右必须有空格#}
+        {% if 2 > 3 %}
+            <div>success</div>
+        {% else %}
+            <div>failed</div>
+        {% endif %}
+
+
+        {% if score > 90 %}
+            <div>A</div>
+        {% elif score > 80 %}
+            <div>B</div>
+        {% elif score > 60 %}
+            <div>C</div>
+        {% else %}
+            <div>不及格</div>
+        {% endif %}
+
+        {# with后面赋值=最后不能有空格#}
+        {% with p2=dic.name %}
+            {{ p2.1 }}
+        {% endwith %}
+
+
+
+{% endblock %}
+
