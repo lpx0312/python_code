@@ -37,4 +37,4 @@ if result.get('data').get('cityname') == '武汉':
 conn.close()
 
 
-
+getpwd

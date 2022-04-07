@@ -18,9 +18,16 @@ args = parser.parse_args()
 print('args',args)
 
 if __name__ == '__main__' :
-    result = args.length * args.width
-    print(result)
+    # result = args.length * args.width
+    # print(result)
 
+    import re
+
+    ret4= re.match("\*.lnk","1.lnk")
+    print(ret4)
+    # print(type(ret4)) # <class 're.Match'>
+    # print(ret4.group())
+    # print(ret4.span())
 
 
 # windows中最好加上r，不转移，否则三引号注释会报错
