@@ -2,41 +2,18 @@
 # -*- coding: UTF-8 -*-
 '''
 @Project ：python_code 
-@File    ：argparse位置参数与可选参数.py
+@File    ：copytree使用.py
 @Author  ：lipanxiang
-@Date    ：2022/4/6 22:36 
+@Date    ：2022/4/9 0:00 
 '''
+# 不符合要求
 
-
-import argparse
-import shutil
 import os
 import sys
-import re
-
-uasge="""
-cp [OPTION]... [-T] SOURCE DEST
-or:  cp [OPTION]... SOURCE... DIRECTORY
-or:  cp [OPTION]... -t DIRECTORY SOURCE...
-"""
-description="Copy SOURCE to DEST, or multiple SOURCE(s) to DIRECTORY"
+import shutil
 
 
-parser = argparse.ArgumentParser(prog='copy',usage=uasge,description=description,epilog="the message info after help info",prefix_chars='-')
-# 位置参数
-parser.add_argument('src',type=str,default='',help='')
-parser.add_argument('dest',type=str,default='')
-
-# 可选参数
-parser.add_argument('-f','--force',action = 'store_true',help='强制拷贝')
-parser.add_argument('-r','--recursive',action = 'store_true',help='拷贝目录')
-
-args = parser.parse_args('-r demodir demodir2'.split())
-# args = parser.parse_args('1.mp4.lnk demodir'.split())
-print(args)
-
-
-# 不符合要求
+# 不太符合要求
 def copydir(src, dest, symlinks=False, ignore=None):
     '''
     主要用于复制src文件夹中所有内容到 dest文件夹中。但是有个问题，如果源文件夹中存在 a文件夹，目标文件夹中也存在a文件夹，则copytree还是会报错
@@ -53,13 +30,10 @@ def copydir(src, dest, symlinks=False, ignore=None):
 
 
 def need_suffix_ignore(ignore_rule,suffix):
-    print("ignore_rule",ignore_rule)
-    print("suffix",suffix)
+    '''判断文件后缀 是否被 ignore规则匹配,如果被忽略了就返回 True，否则返回 False'''
     suffix_ignore = False
     for rule in ignore_rule:
-        print("rule",rule)
-        res = re.search(rule, suffix, flags=0)
-        # res = re.match(rule, suffix)
+        res = re.search(rule, suffix)
         print("res",res)
         if res:
             suffix_ignore = True
@@ -96,16 +70,10 @@ def copydir2(src, dest, symlinks=False, ignore=None):
         for file_ in files:
 
             # 在这里可以实现，ignore，类似于
-            # 获取文件后缀
             file_suffix = os.path.splitext(file_)[-1]
-            print(file_suffix)
-
-            # 【重点】 这里的正则 还是有问题，周末一定要恶补
-            # if need_suffix_ignore(ignore,file_suffix) :
-            #     print("file:{0} 需要忽略，不覆盖(不拷贝)")
-            #     continue
-            # 判断后缀是否在 re规则中，如果在就返回true，
-
+            if not file_suffix or need_suffix_ignore(ignore,file_suffix) :
+                print("file:{0} 需要忽略，不覆盖(不拷贝)".format(file_))
+                continue
 
             src_file = os.path.join(src_dir, file_)
             dst_file = os.path.join(dst_dir, file_)
@@ -123,8 +91,13 @@ def copydir2(src, dest, symlinks=False, ignore=None):
 
 
 
-
-def copyfileOrdir(src,dest,recursive,symlinks=False, ignore=None):
+def copyfileOrdir(src,dest,recursive=False,symlinks=False, ignore=None):
+    '''
+    src:源文件/目录路径
+    dest:目标文件/目录路径
+    recursive: 是否递归，如果前面src是目录的话，这里就必须设置为True
+    ignore:是否忽略，复制某些文件。(功能目前还不全面)
+    '''
     if os.path.isfile(src) :
         print('源文件是文件,包含快捷键，是否包含软链接还需要验证')
         shutil.copy(src,dest)
@@ -137,66 +110,17 @@ def copyfileOrdir(src,dest,recursive,symlinks=False, ignore=None):
                 # 目标路径是一个目录
                 if os.path.isdir(dest):
                     # shutil.copytree(args.SOURCE, args.DEST, symlinks=True)
-                    copydir2(src, dest, symlinks=False, ignore=("*.lnk", "*.txt"))
+                    copydir2(src, dest, symlinks=False, ignore=("\.lnk$", "\.txt$"))
                 else:
                     print('目标路径{0}是一个文件，报错退出'.format(dest))
                     sys.exit(1)
             else:
-                shutil.copytree(src, dest, symlinks=True)
+                shutil.copytree(src, dest, symlinks=symlinks)
                 print('目标路径不存在，直接创建对应{0}目录'.format(dest))
         else:
             print('源路径{0}是目录，未添加-r 递归参数'.format(src))
             sys.exit(1)
 
-copyfileOrdir(args.src,args.dest,args.recursive)
 
-
-# shutil.copytree("demodir","demodir2\\")
-
-
-
-# if not args.r :
-#     shutil.copyfile(args.SOURCE,args.DEST,args.r)
-# else:
-#     shutil.copytree(args.SOURCE,args.DEST,args.r)
-
-
-
-
-
-# action 动作
-r'''
-1. store 保存参数值，可能会先将参数值转换成另一个数据类型。若没有显式指定动作，则默认为该动作。
-2. store_const 保存一个被定义为参数规格一部分的值，而不是一个来自参数解析而来的值。这通常用于实现非布尔值的命令行标记。
-3，store_ture/store_false 保存相应的布尔值。这两个动作被用于实现布尔开关。 【常用】
-4. append 将值保存到一个列表中。若参数重复出现，则保存多个值。【常用】
->>> import argparse
->>> parse = argparse.ArgumentParser()
->>> parse.add_argument('-b',action = 'append')
-_AppendAction(option_strings=['-b'], dest='b', nargs=None, const=None, default=None, type=None, choices=None, help=None, metavar=None)
->>> parse.parse_args('-b  100 -b 200'.split())
-Namespace(b=['100', '200'])
-
-5. append_const 将一个定义在参数规格中的值保存到一个列表中。
-
-
-
-6. version 打印关于程序的版本信息，然后退出
->>> import argparse
->>> parse = argparse.ArgumentParser(prog = 'the demo ')
->>> parse.add_argument('--version',action = 'version',version = '%(prog)s2.0')
-_VersionAction(option_strings=['--version'], dest='version', nargs=0, const=None, default='==SUPPRESS==', type=None, choices=None, help="show program's version number and exit", metavar=None)
->>> parse.parse_args('--version'.split())
-the demo 2.0
-
-7. count统计参数出现的次数
->>> import argparse
->>> parse = argparse.ArgumentParser()
->>> parse.add_argument('-b',action = 'count')
-_CountAction(option_strings=['-b'], dest='b', nargs=0, const=None, default=None, type=None, choices=None, help=None, metavar=None)
->>> parse.parse_args('-b -b'.split())
-Namespace(b=2)
-
-'''
-
+# copyfileOrdir(args.src,args.dest,args.recursive)
 
