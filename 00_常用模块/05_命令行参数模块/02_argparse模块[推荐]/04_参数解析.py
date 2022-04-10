@@ -5,30 +5,24 @@ import argparse
 
 
 
-# prefix_chars 设置参数的前缀 - ，不能设置为空，默认是 -，所以参数只能是 -length 或者--length
-parser = argparse.ArgumentParser('计算长方形的周长',prefix_chars='-')
+def getargs():
+    parser = argparse.ArgumentParser('计算长方形的周长',prefix_chars='-')
 
-# 添加可选参数
-parser.add_argument('-l','--length',default=10,type=int,help='长')
-parser.add_argument('-w','--width',default=20,type=int,help='宽')
-parser.add_argument('-f',action = 'store_true',help='长')
-parser.add_argument('-r',action = 'store_true',help='长')
+    # 添加可选参数
+    parser.add_argument('-l','--length',default=10,type=int,help='长')
+    parser.add_argument('-w','--width',default=20,type=int,help='宽')
+    parser.add_argument('-f',action = 'store_true',help='长')
+    parser.add_argument('-r',action = 'store_true',help='长')
 
-args = parser.parse_args()
-print('args',args)
+    args = parser.parse_args()
+    # print('args',args)
+    return vars(args)
 
 if __name__ == '__main__' :
     # result = args.length * args.width
     # print(result)
-
-    import re
-
-    ret4= re.match("\*.lnk","1.lnk")
-    print(ret4)
-    # print(type(ret4)) # <class 're.Match'>
-    # print(ret4.group())
-    # print(ret4.span())
-
+    args = getargs()
+    print(args)
 
 # windows中最好加上r，不转移，否则三引号注释会报错
 r""" 

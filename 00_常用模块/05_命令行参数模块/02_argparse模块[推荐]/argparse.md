@@ -2,11 +2,6 @@
 [参考全重点](https://www.cnblogs.com/linxiyue/p/3908623.html)
 [参考2](https://www.jianshu.com/p/ea52fdfaa4ad)
 
-# 一级目录
-
-[跳转](#三级目录)
-
-
 ```python
 
 # python中命令行解析最简单最原始的方法是使用sys.argv来实现，
