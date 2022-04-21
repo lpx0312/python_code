@@ -48,7 +48,32 @@ Python官方给出的建议是尽量使用subprocess.run()函数。
 # -*- coding: UTF-8 -*-
 # 推荐subprocess.Popen方法 【通用 推荐】
 
+
+# 解决python2中打印返回中文，python3返回b'\xe5\x91\xb5\xe5\x91\xb5\xe5\x91\xb5\xe5\x91\xb5\n'的问题
+def convert_to_unicode(text):
+    """Converts `text` to Unicode (if it's not already), assuming utf-8 input."""
+    if six.PY3:
+        if isinstance(text, str):
+            return text
+        elif isinstance(text, bytes):
+            return text.decode("utf-8", "ignore")
+        else:
+            raise ValueError("Unsupported string type: %s" % (type(text)))
+    elif six.PY2:
+        if isinstance(text, str):
+            return text.decode("utf-8", "ignore")
+        elif isinstance(text, unicode):
+            return text
+        else:
+            raise ValueError("Unsupported string type: %s" % (type(text)))
+    else:
+        raise ValueError("Not running on Python2 or Python 3?")
+
+
+
+
 import subprocess
+import six
 cmd = "sh ~/2.sh"
 res = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 # print(res.stdout.read()) 这种也可以获取 屏幕输出
@@ -57,7 +82,8 @@ std_out, std_err = res.communicate()  # 推荐使用这种
 if not std_err :
     print('成功')
     print('命令输出')
-    print(std_out)
+    ret=convert_to_unicode(std_out)
+    print(ret)
 else:
     print("命令执行出错")
 
