@@ -41,8 +41,6 @@ Python官方给出的建议是尽量使用subprocess.run()函数。
 
 当subprocess.call()、subprocess.check_call()、subprocess.check_output()和subprocess.run()这些高级函数无法满足需求时，
 我们可以使用subprocess.Popen类来实现我们需要的复杂功能。
-
-
 '''
 
 
@@ -53,7 +51,7 @@ Python官方给出的建议是尽量使用subprocess.run()函数。
 import subprocess
 cmd = "sh ~/2.sh"
 res = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-# print(res.stdout.read())
+# print(res.stdout.read()) 这种也可以获取 屏幕输出
 # print(res.stderr.read())
 std_out, std_err = res.communicate()  # 推荐使用这种
 if not std_err :
