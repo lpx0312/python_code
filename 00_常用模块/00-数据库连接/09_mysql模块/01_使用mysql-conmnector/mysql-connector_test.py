@@ -10,6 +10,12 @@
 # 安装模块
 # python -m pip install mysql-connector
 
+## 优点：
+# MySQL Connector/Python 是 MySQL 官方提供的 Python 连接 MySQL 数据库的驱动程序
+# 相较于MySQLdb模块来说，其支持python3，而MySQLdb目前只支持到python2.7版本
+
+
+
 # 参考教程：
 # https://www.cnblogs.com/-beyond/p/9798970.html
 # https://www.runoob.com/python3/python-mysql-connector.html
@@ -137,4 +143,5 @@ print(res)
 # mydb.commit()
 # print(cmd.rowcount)
 
+mydb.close()
 
