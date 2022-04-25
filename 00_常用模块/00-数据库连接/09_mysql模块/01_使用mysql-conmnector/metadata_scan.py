@@ -24,11 +24,18 @@ config={
 }
 
 def ignore_dir(rootdir,path):
-    ignore_lst=['/.git','/.idea','/.gitignore']
+    ignore_lst=['/.git','/.idea']
     for ignore in ignore_lst:
         if ignore in os.path.join(path).replace(rootdir,''):
             return True
     return False
+
+def ignore_file(file_name):
+    file_ignore = ['.gitignore', '.gitkeep']
+    if file_name in file_ignore:
+        return True
+    return False
+
 
 def insert_mysql(total_file_path,projectName):
     # print('call insert_mysql')
@@ -54,6 +61,8 @@ def metadata_scan(rootdir,projectName):
             continue
         # 如果不包含,metedata目录 也跳过。
         for file in file_lst:
+            if ignore_file(file):
+                continue
             file_path=os.path.join(path,file)
             total_file_path = file_path[len(rootdir):]
             # print(total_file_path,projectName)
